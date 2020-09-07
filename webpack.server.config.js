@@ -5,13 +5,13 @@ module.exports = {
   target: "node",
   entry: "./src/server.ts",
   output: {
-    filename: "js/server.js",
+    filename: "js/server/server.js",
     path: path.resolve(process.cwd(), "dist"),
-    publicPath: "/"
+    publicPath: "/",
   },
   devtool: "cheap-module-eval-source-map",
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json"]
+    extensions: [".ts", ".tsx", ".js", ".json"],
   },
   module: {
     rules: [
@@ -19,10 +19,10 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
-            loader: "ts-loader"
-          }
-        ]
-      }
-    ]
-  }
+            loader: "ts-loader",
+          },
+        ],
+      },
+    ],
+  },
 };

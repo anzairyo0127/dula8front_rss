@@ -6,5 +6,5 @@ const port: number = 9000;
 const app: Express = createApp("dev");
 
 app.listen(port, () => {
-  console.log(`Listen port ${port}`);
+  console.log(`Listen port http://127.0.0.1:${port}`);
 });
