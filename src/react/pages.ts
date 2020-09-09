@@ -5,11 +5,12 @@ interface InsertHtml {
 
 const html = ({ header, mainContent }: InsertHtml) => `
   <!DOCTYPE html>
-  <html>
+  <html lang="ja">
     <head>
       <meta charset="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <title>dula8Front</title>
+      <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
       <div class="header">${header}</div>
@@ -17,7 +18,7 @@ const html = ({ header, mainContent }: InsertHtml) => `
       <div class="sideBar"></div>
       <div class="mainContent">${mainContent}</div>
     </body>
-    <script src="js/react.js" defer></script>
+    <script src="scripts/script.js"></script>
   </html>
 `;
 

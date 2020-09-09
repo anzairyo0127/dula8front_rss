@@ -13,3 +13,10 @@ viewRoutes.get("/", (req, res) => {
   const mainContent: string = renderToString(React.createElement(MonthCalendar));
   res.send(html({ header, mainContent }));
 });
+
+
+viewRoutes.get("/hoge", (req, res) => {
+  const header: string = renderToString(React.createElement(Header));
+  const mainContent: string = renderToString(React.createElement(MonthCalendar));
+  res.send(html({ header, mainContent }));
+});
