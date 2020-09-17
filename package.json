@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/classnames": "^2.2.10",
     "@types/express": "^4.17.8",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
@@ -31,6 +32,8 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "classname": "0.0.0",
+    "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "react": "^16.13.1",

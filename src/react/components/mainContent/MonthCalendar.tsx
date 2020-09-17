@@ -1,77 +1,124 @@
-import React from "react";
+import React, { FC, useState, useContext } from "react";
+import classNames from "classnames";
 
-const Header = () => {
+import * as utils from "../../../utils";
+import * as I from "../interfaces";
+import * as A from "./actions";
+import {MainContentContext} from "./Content";
+
+const Header:FC = () => {
+  const {state, dispatch } = useContext(MainContentContext);
+
+  const date = state.nowDate;
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+
+  const prefMonth = (e:any) => {
+    dispatch({type: A.Actions.setNowDate, payload: utils.addMonth(date, -1)});
+  };
+
+  const nextMonth = (e:any) => {
+    dispatch({type: A.Actions.setNowDate, payload: utils.addMonth(date, 1)});
+  };
+
   return (
     <div className="monthCalendarHeader">
-      <h1>2020 9月</h1>
+      <h1>{ year }年 { month }月</h1>
+      <button className="arrowButton" onClick={prefMonth}>{ "<<" }</button>
+      <button className="arrowButton" onClick={nextMonth}>{ ">>" }</button>
     </div>
   );
 };
 
-const Body = () => {
+const Date:FC<{date:Date}> = ({date}) => {
+  const {state, dispatch} = useContext(MainContentContext);
+  const dayOfWeek: number = date.getDay();
+  const isHoliday = [0, 6].includes(dayOfWeek);
+  const isoString = date.toISOString();
+  const isClicked = state.selectDate === isoString;
+  const classes = classNames({holidayColor:isHoliday},{selected:isClicked});
+  const onClickHandler = (e:React.MouseEvent): void => {
+    dispatch({type: A.Actions.setSelectDate, payload: isoString});
+    console.log(state.selectDate)
+  };
+  return (<td key={isoString} className={classes} onClick={onClickHandler}>{date.getDate()}</td>)
+};
+
+const Dates = (state:I.CalendarState):JSX.Element[] => {
+  const date = state.nowDate;
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const firstDateOfMonth = utils.getFirstDate(year, month);
+  const lastDateOfMonth = utils.getLastDate(year, month);
+  const firstDateOfWeek = utils.getFirstDateOfWeek(firstDateOfMonth);
+  const lastDateOfWeek = utils.getLastDateOfWeek(lastDateOfMonth);
+
+  const termDay = (lastDateOfWeek.getTime() - firstDateOfWeek.getTime()) / 86400000
+
+  const dates:JSX.Element[] = (() => {
+    const l = [];
+    let temp = [];
+    let count = 1;
+    for (let i = 0; i <= termDay; i++ ) {
+      const date = utils.addDate(firstDateOfWeek, i);
+      const el = <Date key={date.toISOString()} date={date} />
+      temp.push(el);
+      if (date.getDay() === 6) {
+        l.push(<tr key={count}>{ temp }</tr>)
+        count++;
+        temp = [];
+      };
+    };
+    return l;
+  })();
+
+  return dates;
+};
+
+const WeekOfDays = () => {
+  const days = [
+    "SUN",
+    "MON",
+    "TUS",
+    "WED",
+    "THU",
+    "FRI",
+    "SAT",
+  ];
+  
+  const weeks = Object.entries(days).map(([i, day]) => {
+    if (([0,6]).includes(Number(i))) {
+      return <th key={i} className="holidayColor">{ day }</th>              
+    } else {
+      return <th key={i}>{ day }</th>
+    }
+  });
+  
+  return (
+    <thead>
+      <tr id="week">
+        { weeks }
+      </tr>
+    </thead>
+  );
+};
+
+const Body:FC = () => {
+  const { state, _ } = useContext(MainContentContext);
+
   return (
     <div className="mainContentBody">
       <table className="calendar">
-        <tr>
-          <th className="holidayColor">SUN</th>
-          <th>MON</th>
-          <th>TUS</th>
-          <th>WED</th>
-          <th>THU</th>
-          <th>FRI</th>
-          <th className="holidayColor">SAT</th>
-        </tr>
-        <tr>
-          <td className="holidayColor"> </td>
-          <td> </td>
-          <td className="haveProgram">1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>4</td>
-          <td className="holidayColor">5</td>
-        </tr>
-        <tr>
-          <td className="haveProgram holidayColor selected">6</td>
-          <td>7</td>
-          <td>8</td>
-          <td>9</td>
-          <td>10</td>
-          <td>11</td>
-          <td className="holidayColor">12</td>
-        </tr>
-        <tr>
-          <td className="holidayColor haveProgram">13</td>
-          <td>14</td>
-          <td>15</td>
-          <td>16</td>
-          <td>17</td>
-          <td>18</td>
-          <td className="holidayColor">19</td>
-        </tr>
-        <tr>
-          <td className="holidayColor">20</td>
-          <td>21</td>
-          <td>22</td>
-          <td>23</td>
-          <td>24</td>
-          <td>25</td>
-          <td className="holidayColor">26</td>
-        </tr>
-        <tr>
-          <td className="holidayColor">27</td>
-          <td>28</td>
-          <td>29</td>
-          <td>30</td>
-          <td> </td>
-          <td> </td>
-          <td className="holidayColor"> </td>
-        </tr>
+        <WeekOfDays />
+        <tbody>
+          { Dates(state) }
+        </tbody>
       </table>
     </div>
   );
 };
 
-const MonthCalendar = () => {
+const MonthCalendar:FC = () => {
   return (
     <div className="monthCalendar">
       <Header />

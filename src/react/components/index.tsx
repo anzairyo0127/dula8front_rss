@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDom from "react-dom";
 
 import Header from "./header/Header";
-import MonthCalendar from "./mainContent/MonthCalendar";
+import MainContent  from "./mainContent/Content";
 
 ReactDom.hydrate(<Header />, document.querySelector(".header"));
-ReactDom.hydrate(<MonthCalendar />, document.querySelector(".mainContent"));
+ReactDom.hydrate(<MainContent />, document.querySelector(".mainContent"));

@@ -1,9 +1,9 @@
 import * as React from "react";
 
-const Header = (props: any) => {
+const Header = () => {
   return (
     <div>
-      <h1>Maaaaa</h1>
+      <h1>Welcome to DULA8 Front!</h1>
     </div>
   );
 };
