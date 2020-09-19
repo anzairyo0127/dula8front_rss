@@ -1,4 +1,4 @@
-import * as I from "../interfaces";
+import * as I from "../../../interfaces";
 import * as A from "./actions";
 
 export const reducer = (state:I.CalendarState, action:I.Action) => {
@@ -8,6 +8,10 @@ export const reducer = (state:I.CalendarState, action:I.Action) => {
       return A.setNowDate(state, action.payload);
     case A.Actions.setSelectDate:
       return A.setSelectDate(state, action.payload);  
+    case A.Actions.closeModal:
+      return A.closeModal(state);
+    case A.Actions.setModalData:
+      return A.setModalData(state, action.payload);
     default:
       return state;
   }

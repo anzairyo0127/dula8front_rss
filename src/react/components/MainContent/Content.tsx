@@ -1,13 +1,28 @@
 import * as React from "react";
 
-import MonthCalendar from "./MonthCalendar";
-import * as I from "../interfaces";
+import MonthCalendar from "./MonthCalender/MonthCalendar";
+import * as I from "../../../interfaces";
 import { reducer } from "./reducer";
+
+const modalData: I.Program = {
+  id: 0,
+  title: "init",
+  content: "init",
+  status: "init",
+  startTime: "init",
+  endTime: "init",
+  createdDate: "init",
+  updateDate: "init",
+  userId: 0,
+}
 
 const mainContentInitState:I.CalendarState = {
   nowDate: new Date(),
   startDay: 0,
-  selectDate: 0,
+  selectDate: null,
+  programList: [],
+  isModalOpen: false,
+  modalData,
 };
 
 export const MainContentContext = React.createContext<I.CalendarState | any>(mainContentInitState);
@@ -24,6 +39,7 @@ const MainContentProvider = ({children}:{children:any}) => {
 const MainContent = () => {
   return (
     <MainContentProvider>
+      <div className="program-modal-window"></div>
       <MonthCalendar />
     </MainContentProvider>
   )  

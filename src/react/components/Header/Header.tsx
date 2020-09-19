@@ -3,7 +3,7 @@ import * as React from "react";
 const Header = () => {
   return (
     <div>
-      <h1>Welcome to DULA8 Front!</h1>
+      <h3>Welcome to DULA8 Front!</h3>
     </div>
   );
 };
