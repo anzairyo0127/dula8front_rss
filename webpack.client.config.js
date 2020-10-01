@@ -14,7 +14,7 @@ module.exports = {
   },
   devtool: "cheap-module-eval-source-map",
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json", ".scss"],
+    extensions: [".ts", ".tsx", ".js", ".json", ".scss",".mjs", ".mts",".d.ts"],
   },
   module: {
     rules: [
@@ -26,6 +26,11 @@ module.exports = {
             loader: "ts-loader",
           },
         ],
+      },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
       },
       {
         test: /\.scss$/i,

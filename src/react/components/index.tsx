@@ -4,9 +4,12 @@ import * as React from "react";
 import * as ReactDom from "react-dom";
 import Modal from 'react-modal';
 
-import Header from "./Header/Header";
-import MainContent  from "./MainContent/Content";
+import Top from "./Top";
 
-Modal.setAppElement(".mainContent");
-ReactDom.hydrate(<Header />, document.querySelector(".header"));
-ReactDom.hydrate(<MainContent />, document.querySelector(".mainContent"));
+import Amplify from 'aws-amplify';
+import config from "../../aws-exports";
+
+Amplify.configure(config)
+
+Modal.setAppElement(".app");
+ReactDom.hydrate(<Top />, document.querySelector(".app"));
