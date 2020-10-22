@@ -1,9 +1,8 @@
 interface InsertHtml {
-  header: string;
-  mainContent: string;
+  top: string
 }
 
-const html = ({ header, mainContent }: InsertHtml) => `<!DOCTYPE html>
+export const html = ({ top }: InsertHtml) => `<!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8"/>
@@ -12,12 +11,7 @@ const html = ({ header, mainContent }: InsertHtml) => `<!DOCTYPE html>
     <link href="css/style.css" rel="stylesheet">
   </head>
   <body>
-    <div class="header">${header}</div>
-    <div class="keyVisual"></div>
-    <div class="sideBar"></div>
-    <div class="mainContent">${mainContent}</div>
+    <div class="app">${top}</div>
   </body>
   <script src="scripts/script.js"></script>
 </html>`;
-
-export default html;

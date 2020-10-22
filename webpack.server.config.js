@@ -13,18 +13,23 @@ module.exports = {
   },
   devtool: "cheap-module-eval-source-map",
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json"],
+    extensions: [".ts", ".tsx", ".js", ".json", ".mjs", ".mts",".d.ts"],
   },
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.m?[tj]sx?$/,
         use: [
           {
             loader: "ts-loader",
           },
         ],
       },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }
     ],
   },
 };

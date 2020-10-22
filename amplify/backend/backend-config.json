@@ -1,0 +1,17 @@
+{
+  "auth": {
+    "dula8frontrssc349e7eb": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    },
+    "dula8frontrssbeb13676": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "function": {}
+}

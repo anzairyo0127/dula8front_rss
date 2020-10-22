@@ -1,5 +1,6 @@
 import * as React from "react";
-
+import { Auth } from "aws-amplify";
+import { AmplifySignOut } from '@aws-amplify/ui-react';
 import MonthCalendar from "./MonthCalender/MonthCalendar";
 import * as I from "../../../interfaces";
 import { reducer } from "./reducer";
@@ -37,8 +38,19 @@ const MainContentProvider = ({children}:{children:any}) => {
 };
 
 const MainContent = () => {
+  const getLocalStorageIdToken = async () => {
+    const resp = await Auth.currentSession();
+    /*
+    const accessToken = resp.getAccessToken().getJwtToken();
+    const refreshToken = resp.getRefreshToken().getToken();
+    const idToken = resp.getIdToken().getJwtToken();
+    console.log({accessToken, refreshToken, idToken}); 
+     */
+  }
   return (
     <MainContentProvider>
+      <button onClick={getLocalStorageIdToken}>get</button>
+      <AmplifySignOut buttonText="サインアウト"></AmplifySignOut>
       <div className="program-modal-window"></div>
       <MonthCalendar />
     </MainContentProvider>
